@@ -3,6 +3,7 @@
 
 #include "gtest/gtest.h"
 #include "Order.h"
+#include "Results.h"
 #include "Types.h"
 
 namespace OrderMatchingEngine {
@@ -49,7 +50,7 @@ protected:
         checkOrderData(response.orderData, expectOrderData);
     }
 
-    ResultsType results;
+    Results results;
 };
 
 }

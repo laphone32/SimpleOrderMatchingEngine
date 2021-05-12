@@ -2,6 +2,7 @@
 #define __ORDERMATCHINGENGINE_ORDERQUEUE
 
 #include "Order.h"
+#include "Results.h"
 #include "Types.h"
 #include "LimitOrderQueue.h"
 #include "MarketOrderQueue.h"
@@ -39,7 +40,7 @@ public:
         }
     }
 
-    auto fill(Order &order, ResultsType &results) {
+    auto fill(Order &order, Results &results) {
         switch (order.orderData.orderType) {
         case OrderType::Limit:
             tryFill(order, market, results, [&](auto &&){
@@ -83,7 +84,7 @@ public:
 
 private:
     template <typename F, typename Queue>
-    auto tryFill(Order &order, Queue &&queue, ResultsType &results, F &&f) {
+    auto tryFill(Order &order, Queue &&queue, Results &results, F &&f) {
         while (order.leftQuantity > 0) {
             auto *bestStackOrder = queue.best();
             if (bestStackOrder != nullptr) {
@@ -103,12 +104,12 @@ private:
         }
     }
 
-    auto doFill(Order &order1, Order &order2, ResultsType &results) {
+    auto doFill(Order &order1, Order &order2, Results &results) {
         auto fillQuantity = std::min(order1.leftQuantity, order2.leftQuantity);
         order1.fill(fillQuantity);
         order2.fill(fillQuantity);
-        results.emplace_back(order1.orderData, ExecutionType::Trade, order1.exchangeId, lastPrice, fillQuantity);
-        results.emplace_back(order2.orderData, ExecutionType::Trade, order2.exchangeId, lastPrice, fillQuantity);
+        results.fill(order1, lastPrice, fillQuantity);
+        results.fill(order2, lastPrice, fillQuantity);
     }
 
 

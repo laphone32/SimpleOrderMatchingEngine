@@ -1,7 +1,6 @@
 #ifndef __ORDERMATCHINGENGINE_ORDER
 #define __ORDERMATCHINGENGINE_ORDER
 
-#include <chrono>
 #include "Types.h"
 
 namespace OrderMatchingEngine {

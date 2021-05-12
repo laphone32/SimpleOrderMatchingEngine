@@ -2,6 +2,7 @@
 #define __ORDERMATCHINGENGINE_ORDERBOOK
 
 #include "OrderQueue.h"
+#include "Results.h"
 #include "Types.h"
 
 namespace OrderMatchingEngine {
@@ -10,7 +11,7 @@ class OrderBook {
 public:
     OrderBook(PriceType openPrice) : bidOrderQueue(bidPriceCompare, openPrice), askOrderQueue(askPriceCompare, openPrice) {}
 
-    auto newOrder(Order &order, ResultsType &results) {
+    auto newOrder(Order &order, Results &results) {
         switch (order.orderData.side) {
         case Side::Bid:
             askOrderQueue.fill(order, results);
