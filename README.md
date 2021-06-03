@@ -1,5 +1,5 @@
 # SimpleOrderMatchingEngine
-Simple Order Matching Engine
+Simple Order Matching Engine, refer the [Requirements](Requirements.md) for further details.
 
 ## Build
 ### CMake
